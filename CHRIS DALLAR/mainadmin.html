@@ -1,0 +1,508 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Admin Panel - HOUSE OF CREATIVITY</title>
+
+<!-- Font Awesome -->
+<link
+  rel="stylesheet"
+  href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+/>
+
+<style>
+  body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: #121212;
+    color: #eee;
+    margin: 0;
+    padding: 0 20px 40px;
+  }
+  h1,
+  h2 {
+    text-align: center;
+    margin-top: 20px;
+  }
+  section {
+    background: #222;
+    margin: 20px auto;
+    border-radius: 10px;
+    padding: 15px;
+    max-width: 700px;
+  }
+  label {
+    display: block;
+    margin-top: 10px;
+    font-weight: 600;
+  }
+  input[type='text'],
+  input[type='file'],
+  textarea,
+  select {
+    width: 100%;
+    padding: 8px;
+    margin-top: 5px;
+    border-radius: 6px;
+    border: none;
+    outline: none;
+  }
+  button {
+    margin-top: 15px;
+    padding: 12px 20px;
+    background: #444;
+    border: none;
+    color: #eee;
+    cursor: pointer;
+    border-radius: 8px;
+    font-size: 1em;
+    transition: background 0.3s ease;
+  }
+  button:hover {
+    background: #5a5a5a;
+  }
+  .small-btn {
+    background: #b33;
+    font-size: 0.8em;
+    padding: 6px 12px;
+    margin-left: 10px;
+    border-radius: 5px;
+  }
+  .flex-row {
+    display: flex;
+    align-items: center;
+  }
+  .flex-row > * {
+    margin-right: 10px;
+  }
+  .admin-chat-list,
+  .notify-list {
+    max-height: 150px;
+    overflow-y: auto;
+    margin-top: 10px;
+    background: #111;
+    padding: 10px;
+    border-radius: 8px;
+  }
+  .chat-message {
+    background: #333;
+    padding: 6px 10px;
+    border-radius: 6px;
+    margin-bottom: 8px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .chat-message.admin {
+    background: #225522;
+  }
+  .chat-message .delete-btn {
+    background: #a22;
+    border: none;
+    color: white;
+    padding: 4px 8px;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  hr {
+    border-color: #444;
+    margin: 30px 0;
+  }
+  /* Scroll horizontal styling */
+  .scroll-horizontal {
+    display: flex;
+    overflow-x: auto;
+    gap: 10px;
+    padding-bottom: 10px;
+  }
+  .scroll-card {
+    background: #333;
+    padding: 10px;
+    border-radius: 10px;
+    min-width: 200px;
+    position: relative;
+    color: #ddd;
+  }
+  .scroll-card img,
+  .scroll-card video {
+    max-width: 100%;
+    border-radius: 10px;
+  }
+  .scroll-card .overlay-text {
+    margin-top: 5px;
+    font-weight: bold;
+  }
+  .scroll-card .delete-btn {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    background: #b33;
+    border: none;
+    color: white;
+    padding: 3px 7px;
+    font-size: 0.8em;
+    border-radius: 6px;
+    cursor: pointer;
+  }
+</style>
+</head>
+<body>
+
+<h1>HOUSE OF CREATIVITY - ADMIN PANEL</h1>
+
+<!-- UPLOAD SLIDER CONTENT -->
+<section>
+  <h2>Upload Slider Content</h2>
+  <form id="uploadSliderForm">
+    <label>Type:</label>
+    <select id="sliderType" required>
+      <option value="">Select type</option>
+      <option value="image">Image + Overlay Text</option>
+      <option value="video">Video + Overlay Text</option>
+      <option value="text">Text Only</option>
+    </select>
+
+    <label for="sliderFile" id="fileLabel" style="display:none;">Select File:</label>
+    <input type="file" id="sliderFile" accept="image/*,video/*" style="display:none;" />
+
+    <label for="overlayText" id="overlayLabel" style="display:none;">Overlay Text:</label>
+    <input type="text" id="overlayText" placeholder="Enter overlay text" style="display:none;" />
+
+    <label for="textOnly" id="textOnlyLabel" style="display:none;">Text Content:</label>
+    <textarea id="textOnly" rows="3" placeholder="Enter text content" style="display:none;"></textarea>
+
+    <button type="submit">Upload</button>
+  </form>
+
+  <div id="sliderPreview" style="margin-top:20px;"></div>
+</section>
+
+<hr />
+
+<!-- UPLOAD EVENTS -->
+<section>
+  <h2>Upload Event</h2>
+  <form id="uploadEventForm">
+    <label>Title:</label>
+    <input type="text" id="eventTitle" placeholder="Event title" required />
+    <label>Upload Image or Video (optional):</label>
+    <input type="file" id="eventFile" accept="image/*,video/*" />
+    <button type="submit">Add Event</button>
+  </form>
+  <div id="eventList" class="scroll-horizontal" style="margin-top:15px;"></div>
+</section>
+
+<hr />
+
+<!-- UPLOAD TRANSACTIONS -->
+<section>
+  <h2>Upload Successful Transaction</h2>
+  <form id="uploadTransactionForm">
+    <label>Title:</label>
+    <input type="text" id="transTitle" placeholder="Transaction title" required />
+    <label>Upload Image or Video (optional):</label>
+    <input type="file" id="transFile" accept="image/*,video/*" />
+    <button type="submit">Add Transaction</button>
+  </form>
+  <div id="transactionList" class="scroll-horizontal" style="margin-top:15px;"></div>
+</section>
+
+<hr />
+
+<!-- UPLOAD MORE CONTENT -->
+<section>
+  <h2>Upload More Content</h2>
+  <form id="uploadMoreForm">
+    <label>Title (optional):</label>
+    <input type="text" id="moreTitle" placeholder="Title for content (optional)" />
+    <label>Upload Image, Video or Text:</label>
+    <input type="file" id="moreFile" accept="image/*,video/*" />
+    <label>Or Text Content:</label>
+    <textarea id="moreText" rows="3" placeholder="Enter text content"></textarea>
+    <button type="submit">Add More Content</button>
+  </form>
+  <div id="moreList" style="margin-top:15px; max-height: 250px; overflow-y:auto;"></div>
+</section>
+
+<hr />
+
+<!-- NOTIFICATIONS -->
+<section>
+  <h2>Notifications</h2>
+  <form id="notifyForm">
+    <label>Notification Message:</label>
+    <textarea id="notifyText" rows="2" placeholder="Write notification text" required></textarea>
+    <button type="submit">Send Notification</button>
+  </form>
+  <div id="notifyList" class="notify-list"></div>
+</section>
+
+<hr />
+
+<!-- CHAT MANAGEMENT -->
+<section>
+  <h2>Chat Management</h2>
+  <div class="admin-chat-list" id="adminChatList"></div>
+  <button onclick="clearAllChats()" style="background:#b33; width:100%; margin-top:10px;">Clear All Chats</button>
+</section>
+
+<script>
+  /* Utility to get & set storage JSON */
+  function getStorage(key) {
+    const data = localStorage.getItem(key);
+    return data ? JSON.parse(data) : [];
+  }
+  function setStorage(key, data) {
+    localStorage.setItem(key, JSON.stringify(data));
+  }
+
+  /* ====== SLIDER UPLOAD ====== */
+  const sliderType = document.getElementById('sliderType');
+  const sliderFile = document.getElementById('sliderFile');
+  const overlayText = document.getElementById('overlayText');
+  const textOnly = document.getElementById('textOnly');
+  const fileLabel = document.getElementById('fileLabel');
+  const overlayLabel = document.getElementById('overlayLabel');
+  const textOnlyLabel = document.getElementById('textOnlyLabel');
+  const sliderPreview = document.getElementById('sliderPreview');
+
+  function resetSliderInputs() {
+    sliderFile.value = '';
+    overlayText.value = '';
+    textOnly.value = '';
+  }
+
+  sliderType.addEventListener('change', () => {
+    const val = sliderType.value;
+    resetSliderInputs();
+    if (val === 'image') {
+      fileLabel.style.display = 'block';
+      sliderFile.style.display = 'block';
+      sliderFile.accept = 'image/*';
+      overlayLabel.style.display = 'block';
+      overlayText.style.display = 'block';
+      textOnlyLabel.style.display = 'none';
+      textOnly.style.display = 'none';
+    } else if (val === 'video') {
+      fileLabel.style.display = 'block';
+      sliderFile.style.display = 'block';
+      sliderFile.accept = 'video/*';
+      overlayLabel.style.display = 'block';
+      overlayText.style.display = 'block';
+      textOnlyLabel.style.display = 'none';
+      textOnly.style.display = 'none';
+    } else if (val === 'text') {
+      fileLabel.style.display = 'none';
+      sliderFile.style.display = 'none';
+      overlayLabel.style.display = 'none';
+      overlayText.style.display = 'none';
+      textOnlyLabel.style.display = 'block';
+      textOnly.style.display = 'block';
+    } else {
+      fileLabel.style.display = 'none';
+      sliderFile.style.display = 'none';
+      overlayLabel.style.display = 'none';
+      overlayText.style.display = 'none';
+      textOnlyLabel.style.display = 'none';
+      textOnly.style.display = 'none';
+    }
+  });
+
+  document.getElementById('uploadSliderForm').addEventListener('submit', (e) => {
+    e.preventDefault();
+    const type = sliderType.value;
+    if (!type) return alert('Please select a type.');
+
+    if (type === 'text') {
+      const textContent = textOnly.value.trim();
+      if (!textContent) return alert('Please enter text content.');
+      localStorage.setItem('sliderContent', JSON.stringify({
+        type:'text',
+        content:textContent
+      }));
+      alert('Text content uploaded to slider.');
+      renderSliderContent();
+      resetSliderInputs();
+      sliderType.value = '';
+      return;
+    }
+
+    if (!sliderFile.files.length) return alert('Please select a file.');
+    const file = sliderFile.files[0];
+    if (type === 'image' && !file.type.startsWith('image/')) {
+      return alert('Please select a valid image file.');
+    }
+    if (type === 'video' && !file.type.startsWith('video/')) {
+      return alert('Please select a valid video file.');
+    }
+    const reader = new FileReader();
+    reader.onload = function (e) {
+      const dataURL = e.target.result;
+      const overlay = overlayText.value.trim() || '';
+      localStorage.setItem('sliderContent', JSON.stringify({
+        type,
+        content: dataURL,
+        overlay
+      }));
+      alert('Slider content uploaded.');
+      renderSliderContent();
+      resetSliderInputs();
+      sliderType.value = '';
+    };
+    reader.readAsDataURL(file);
+  });
+
+  function renderSliderContent() {
+    const slider = localStorage.getItem('sliderContent');
+    if (!slider) {
+      sliderPreview.innerHTML = '<p>No slider content yet.</p>';
+      return;
+    }
+    const data = JSON.parse(slider);
+    let html = '';
+    if (data.type === 'text') {
+      html = `<div style="padding: 20px; font-size:1.2em; background:#333; border-radius:10px;">${data.content}</div>`;
+    } else if (data.type === 'image') {
+      html = `<div style="position:relative;">
+        <img src="${data.content}" alt="Slider Image" />
+        ${data.overlay ? `<div style="position:absolute; bottom:8px; left:10px; color:#fff; background:rgba(0,0,0,0.6); padding:5px 10px; border-radius:5px;">${data.overlay}</div>` : ''}
+      </div>`;
+    } else if (data.type === 'video') {
+      html = `<div style="position:relative;">
+        <video src="${data.content}" controls width="100%" style="border-radius:10px;"></video>
+        ${data.overlay ? `<div style="position:absolute; bottom:8px; left:10px; color:#fff; background:rgba(0,0,0,0.6); padding:5px 10px; border-radius:5px;">${data.overlay}</div>` : ''}
+      </div>`;
+    }
+    sliderPreview.innerHTML = html;
+  }
+  renderSliderContent();
+
+  /* ====== EVENTS ====== */
+  const eventListEl = document.getElementById('eventList');
+  const eventForm = document.getElementById('uploadEventForm');
+
+  eventForm.addEventListener('submit', e => {
+    e.preventDefault();
+    const title = document.getElementById('eventTitle').value.trim();
+    const fileInput = document.getElementById('eventFile');
+    if (!title) return alert('Enter event title.');
+    const events = getStorage('events');
+
+    if (fileInput.files.length) {
+      const file = fileInput.files[0];
+      const reader = new FileReader();
+      reader.onload = function (e) {
+        events.push({
+          title,
+          media: e.target.result,
+          type: file.type.startsWith('video/') ? 'video' : 'image'
+        });
+        setStorage('events', events);
+        alert('Event added.');
+        eventForm.reset();
+        renderEvents();
+      };
+      reader.readAsDataURL(file);
+    } else {
+      // Text only event (if you want, but requirement was media + title)
+      events.push({ title, media: null, type: 'text' });
+      setStorage('events', events);
+      alert('Event added (no media).');
+      eventForm.reset();
+      renderEvents();
+    }
+  });
+
+  function renderEvents() {
+    const events = getStorage('events');
+    if (!events.length) {
+      eventListEl.innerHTML = '<div class="scroll-card">No current event</div>';
+      return;
+    }
+    eventListEl.innerHTML = '';
+    events.forEach((e, i) => {
+      let html = `<div class="scroll-card">
+        ${e.media ? (
+          e.type === 'video'
+            ? `<video src="${e.media}" controls></video>`
+            : `<img src="${e.media}" alt="${e.title}">`
+        ) : ''}
+        <div class="overlay-text">${e.title}</div>
+        <button class="delete-btn" onclick="deleteEvent(${i})">Delete</button>
+      </div>`;
+      eventListEl.insertAdjacentHTML('beforeend', html);
+    });
+  }
+  function deleteEvent(index) {
+    let events = getStorage('events');
+    events.splice(index, 1);
+    setStorage('events', events);
+    renderEvents();
+  }
+  renderEvents();
+
+  /* ====== TRANSACTIONS ====== */
+  const transListEl = document.getElementById('transactionList');
+  const transForm = document.getElementById('uploadTransactionForm');
+
+  transForm.addEventListener('submit', e => {
+    e.preventDefault();
+    const title = document.getElementById('transTitle').value.trim();
+    const fileInput = document.getElementById('transFile');
+    if (!title) return alert('Enter transaction title.');
+    const trans = getStorage('transactions');
+
+    if (fileInput.files.length) {
+      const file = fileInput.files[0];
+      const reader = new FileReader();
+      reader.onload = function (e) {
+        trans.push({
+          title,
+          media: e.target.result,
+          type: file.type.startsWith('video/') ? 'video' : 'image'
+        });
+        setStorage('transactions', trans);
+        alert('Transaction added.');
+        transForm.reset();
+        renderTransactions();
+      };
+      reader.readAsDataURL(file);
+    } else {
+      trans.push({ title, media: null, type: 'text' });
+      setStorage('transactions', trans);
+      alert('Transaction added (no media).');
+      transForm.reset();
+      renderTransactions();
+    }
+  });
+
+  function renderTransactions() {
+    const trans = getStorage('transactions');
+    if (!trans.length) {
+      transListEl.innerHTML = '<div class="scroll-card">No transaction yet</div>';
+      return;
+    }
+    transListEl.innerHTML = '';
+    trans.forEach((t, i) => {
+      let html = `<div class="scroll-card">
+        ${t.media ? (
+          t.type === 'video'
+            ? `<video src="${t.media}" controls></video>`
+            : `<img src="${t.media}" alt="${t.title}">`
+        ) : ''}
+        <div class="overlay-text">${t.title}</div>
+        <button class="delete-btn" onclick="deleteTransaction(${i})">Delete</button>
+      </div>`;
+      transListEl.insertAdjacentHTML('beforeend', html);
+    });
+  }
+  function deleteTransaction(index) {
+    let trans = getStorage('transactions');
+    trans.splice(index, 1);
+    setStorage('transactions', trans);
+    renderTransactions();
+  }
+  renderTransactions();
+
+  /* ====== MORE CONTENT ====== */
+  const moreListEl

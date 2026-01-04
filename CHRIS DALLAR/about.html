@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title>About Us</title>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+
+<!-- Font Awesome -->
+<link
+  rel="stylesheet"
+  href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+/>
+
+<style>
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+  }
+
+  body {
+    min-height: 100vh;
+    background: linear-gradient(135deg, #1e3c72, #2a5298);
+    color: #fff;
+    padding: 20px;
+  }
+
+  /* Back button */
+  .back-btn {
+    position: fixed;
+    top: 15px;
+    left: 15px;
+    font-size: 22px;
+    color: #fff;
+    text-decoration: none;
+    background: rgba(0, 0, 0, 0.4);
+    padding: 10px 12px;
+    border-radius: 50%;
+    transition: 0.3s;
+    z-index: 100;
+  }
+
+  .back-btn:hover {
+    background: #00c6ff;
+    color: #000;
+  }
+
+  /* Page title */
+  h1 {
+    text-align: center;
+    margin: 40px 0 30px;
+    letter-spacing: 2px;
+    animation: titleBlink 2s infinite;
+  }
+
+  /* Content box */
+  .content-box {
+    max-width: 700px;
+    margin: 0 auto;
+    background: rgba(0, 0, 0, 0.45);
+    padding: 30px;
+    border-radius: 15px;
+    border: 3px solid #00c6ff;
+    animation: borderBlink 1.6s infinite;
+  }
+
+  .content-box p {
+    font-size: 16px;
+    line-height: 1.7;
+    animation: textBlink 3s infinite;
+  }
+
+  /* Animations */
+  @keyframes borderBlink {
+    0% {
+      border-color: #00c6ff;
+    }
+    50% {
+      border-color: #ff00ff;
+    }
+    100% {
+      border-color: #00c6ff;
+    }
+  }
+
+  @keyframes titleBlink {
+    0% {
+      opacity: 1;
+    }
+    50% {
+      opacity: 0.5;
+    }
+    100% {
+      opacity: 1;
+    }
+  }
+
+  @keyframes textBlink {
+    0% {
+      opacity: 1;
+    }
+    50% {
+      opacity: 0.85;
+    }
+    100% {
+      opacity: 1;
+    }
+  }
+</style>
+</head>
+
+<body>
+  <!-- Back Icon -->
+  <a href="menu.html" class="back-btn" title="Back to Menu">
+    <i class="fas fa-arrow-left"></i>
+  </a>
+
+  <h1>ABOUT US</h1>
+
+  <div class="content-box">
+    <p>
+      Welcome to our creative design studio! We specialize in delivering
+      high-quality graphic design services tailored to your unique needs.
+      Whether you're looking for eye-catching flyers, professional logos, or
+      impactful social media designs, we have the expertise to bring your
+      vision to life.
+      <br /><br />
+      Our team is passionate about creativity, innovation, and customer
+      satisfaction. We believe that great design can transform ideas into
+      compelling stories that engage and inspire.
+      <br /><br />
+      Thank you for choosing us as your trusted partner in design. We look
+      forward to working with you and helping your brand shine.
+    </p>
+  </div>
+</body>
+</html>

@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title>Join Our Facebook Page</title>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+
+<!-- Font Awesome -->
+<link
+  rel="stylesheet"
+  href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+/>
+
+<style>
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+  }
+
+  body {
+    height: 100vh;
+    background: linear-gradient(135deg, #1877f2, #0043c8);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #fff;
+  }
+
+  .box {
+    background: rgba(0, 0, 0, 0.35);
+    padding: 35px;
+    border-radius: 12px;
+    text-align: center;
+    width: 90%;
+    max-width: 380px;
+  }
+
+  .box i {
+    font-size: 60px;
+    margin-bottom: 15px;
+  }
+
+  h1 {
+    font-size: 24px;
+    margin-bottom: 10px;
+    animation: blink 1.5s infinite;
+  }
+
+  p {
+    font-size: 15px;
+    margin-bottom: 25px;
+    opacity: 0.9;
+  }
+
+  .join-btn {
+    display: inline-block;
+    background: #fff;
+    color: #1877f2;
+    padding: 14px 25px;
+    font-size: 17px;
+    font-weight: bold;
+    border-radius: 30px;
+    text-decoration: none;
+    transition: 0.3s;
+    cursor: pointer;
+    border: none;
+  }
+
+  .join-btn:hover:not(:disabled) {
+    background: #1877f2;
+    color: #fff;
+  }
+
+  .countdown {
+    font-size: 20px;
+    font-weight: bold;
+    margin-top: 20px;
+    animation: blink 1.2s infinite;
+    display: none;
+  }
+
+  @keyframes blink {
+    0% {
+      opacity: 1;
+    }
+    50% {
+      opacity: 0.4;
+    }
+    100% {
+      opacity: 1;
+    }
+  }
+</style>
+</head>
+
+<body>
+  <div class="box">
+    <i class="fab fa-facebook"></i>
+    <h1>Join Our Facebook Page</h1>
+    <p>Tap the button below to visit and follow our official Facebook page.</p>
+
+    <button id="joinBtn" class="join-btn">Visit Now</button>
+
+    <div id="countdown" class="countdown">
+      Redirecting in <span id="time">10</span> seconds...
+    </div>
+  </div>
+
+  <script>
+    const joinBtn = document.getElementById('joinBtn');
+    const countdownDiv = document.getElementById('countdown');
+    const timeSpan = document.getElementById('time');
+
+    joinBtn.addEventListener('click', () => {
+      // Disable button after click
+      joinBtn.disabled = true;
+      joinBtn.textContent = 'Please wait...';
+
+      countdownDiv.style.display = 'block';
+
+      let timeLeft = 10;
+      timeSpan.textContent = timeLeft;
+
+      const timer = setInterval(() => {
+        timeLeft--;
+        timeSpan.textContent = timeLeft;
+
+        if (timeLeft <= 0) {
+          clearInterval(timer);
+          window.location.href =
+            'https://www.facebook.com/profile.php?id=61585279415411';
+        }
+      }, 1000);
+    });
+  </script>
+</body>
+</html>

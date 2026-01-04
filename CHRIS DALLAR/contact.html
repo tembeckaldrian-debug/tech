@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Contact Us</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<!-- Font Awesome -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Arial, sans-serif;
+}
+
+body{
+    min-height:100vh;
+    background:linear-gradient(135deg, #232526, #414345);
+    padding:20px;
+    color:#fff;
+}
+
+/* Back button */
+.back-btn{
+    position:fixed;
+    top:15px;
+    left:15px;
+    font-size:22px;
+    color:#fff;
+    text-decoration:none;
+    background:rgba(0,0,0,0.4);
+    padding:10px 12px;
+    border-radius:50%;
+    transition:0.3s;
+    z-index:100;
+}
+
+.back-btn:hover{
+    background:#00c6ff;
+    color:#000;
+}
+
+/* Page title */
+h1{
+    text-align:center;
+    margin:30px 0;
+    letter-spacing:2px;
+    animation:blinkTitle 2s infinite;
+}
+
+/* Contact box */
+.contact-box{
+    max-width:500px;
+    margin:0 auto;
+    background:rgba(0,0,0,0.45);
+    padding:30px;
+    border-radius:15px;
+    border:3px solid #00c6ff;
+    animation:borderBlink 1.6s infinite;
+    text-align:center;
+}
+
+/* Text */
+.contact-box p{
+    font-size:16px;
+    margin-bottom:25px;
+    animation:textBlink 3s infinite;
+}
+
+/* Email button */
+.email-btn{
+    display:inline-block;
+    background:#00c6ff;
+    color:#000;
+    padding:14px 25px;
+    font-size:16px;
+    font-weight:bold;
+    border-radius:30px;
+    text-decoration:none;
+    transition:0.3s;
+}
+
+.email-btn i{
+    margin-right:8px;
+}
+
+.email-btn:hover{
+    background:#fff;
+    color:#000;
+}
+
+/* Animations */
+@keyframes borderBlink{
+    0%{border-color:#00c6ff;}
+    50%{border-color:#ff00ff;}
+    100%{border-color:#00c6ff;}
+}
+
+@keyframes blinkTitle{
+    0%{opacity:1;}
+    50%{opacity:0.5;}
+    100%{opacity:1;}
+}
+
+@keyframes textBlink{
+    0%{opacity:1;}
+    50%{opacity:0.85;}
+    100%{opacity:1;}
+}
+</style>
+</head>
+
+<body>
+
+<!-- Back Icon -->
+<a href="menu.html" class="back-btn">
+    <i class="fas fa-arrow-left"></i>
+</a>
+
+<h1>CONTACT US</h1>
+
+<div class="contact-box">
+    <p>
+        Have a question, need a design, or want to work with us?
+        Click the button below to contact our admin directly.
+    </p>
+
+    <a class="email-btn"
+       href="mailto:chrisdollar659@gmail.com?subject=Contact%20from%20Website">
+       <i class="fas fa-envelope"></i>
+       Email Admin
+    </a>
+</div>
+
+</body>
+</html>

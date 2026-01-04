@@ -1,0 +1,797 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>HOUSE OF CREATIVITY</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<!-- Font Awesome Icons -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+<style>
+/* RESET */
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Segoe UI',sans-serif;
+}
+
+/* BLINKING CLASSIC BACKGROUND */
+body{
+    background:linear-gradient(120deg,#0f0f0f,#1b1b1b,#0f0f0f);
+    animation:bgBlink 6s infinite alternate;
+    color:#fff;
+}
+@keyframes bgBlink{
+    0%{filter:brightness(0.9);}
+    100%{filter:brightness(1.2);}
+}
+
+/* HEADER */
+header{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding:15px;
+}
+header i{
+    font-size:22px;
+    cursor:pointer;
+}
+
+/* SEARCH */
+.search-box{
+    flex:1;
+    margin:0 10px;
+}
+.search-box input{
+    width:100%;
+    padding:10px;
+    border-radius:20px;
+    border:none;
+    outline:none;
+}
+
+/* NOTIFICATION */
+.notify{
+    position:relative;
+}
+.notify span{
+    position:absolute;
+    top:-4px;
+    right:-4px;
+    width:10px;
+    height:10px;
+    background:red;
+    border-radius:50%;
+    display:none;
+}
+
+/* Slider slideshow styles */
+.slider {
+  position: relative;
+  max-width: 800px;
+  height: 200px;
+  margin: 15px auto;
+  overflow: hidden;
+  border-radius: 15px;
+  background: #222;
+}
+
+.slide {
+  display: none;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  animation: fade 1s ease-in-out;
+}
+
+.slide img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 15px;
+}
+
+.overlay {
+  position: absolute;
+  bottom: 15px;
+  left: 20px;
+  color: white;
+  background-color: rgba(0, 0, 0, 0.5);
+  padding: 8px 14px;
+  font-size: 1.1em;
+  border-radius: 8px;
+  font-weight: 600;
+}
+
+/* Fade animation */
+@keyframes fade {
+  from {opacity: 0.4;}
+  to {opacity: 1;}
+}
+
+/* BUTTONS */
+.actions{
+    display:flex;
+    justify-content:space-around;
+    margin:15px 10px;
+}
+.actions button{
+    background:#111;
+    border:1px solid #555;
+    color:#fff;
+    padding:12px;
+    border-radius:50px;
+    width:30%;
+    cursor:pointer;
+    animation:btnBlink 1.5s infinite alternate;
+}
+@keyframes btnBlink{
+    0%{box-shadow:0 0 5px #555;}
+    100%{box-shadow:0 0 15px #fff;}
+}
+.actions i{margin-right:6px;}
+
+/* SCROLL SECTIONS */
+.section{
+    margin:15px;
+}
+.section h3{
+    margin-bottom:8px;
+}
+.scroll-x{
+    display:flex;
+    gap:10px;
+    overflow-x:auto;
+}
+.card{
+    min-width:200px;
+    background:#222;
+    padding:10px;
+    border-radius:10px;
+}
+
+/* MORE SECTION */
+.scroll-y{
+    max-height:300px;
+    overflow-y:auto;
+}
+
+/* CHAT BOX */
+.chat-box{
+    background:#111;
+    padding:10px;
+    border-radius:10px;
+    margin:10px;
+}
+.chat-messages{
+    max-height:200px;
+    overflow-y:auto;
+}
+.chat-input{
+    display:flex;
+    margin-top:5px;
+}
+.chat-input input{
+    flex:1;
+    padding:8px;
+    border:none;
+}
+.chat-input button{
+    padding:8px;
+    background:#333;
+    color:#fff;
+    border:none;
+}
+.admin-btn{
+    background:red;
+    color:#fff;
+    padding:5px;
+    border:none;
+    margin-top:5px;
+    cursor:pointer;
+}
+</style>
+</head>
+
+<body>
+
+<!-- HEADER -->
+<header>
+    <i class="fas fa-bars" onclick="location.href='menu.html'"></i>
+
+    <div class="search-box">
+        <input type="text" id="search" placeholder="Search..." onkeyup="searchAction(this.value)">
+    </div>
+
+    <div class="notify" onclick="openNotifications()">
+        <i class="fas fa-bell"></i>
+        <span id="notifyDot"></span>
+    </div>
+</header>
+<h1> WELCOME TO HOUSE<br> OF<br> CREATIVITY</h1>
+<h5> this is sponsored by CHRIS D$LLAR</h5>
+<!-- SLIDER -->
+<div class="slider" id="slider">
+  <div class="slide fade">
+    <img src="1.jpg" alt="Slide 1" />
+    <div class="overlay"> Design </div>
+  </div>
+  <div class="slide fade">
+    <img src="2.jpg" alt="Slide 2" />
+    <div class="overlay">RESTAURANT</div>
+  </div>
+  <div class="slide fade">
+    <img src="3.jpg" alt="Slide 3" />
+    <div class="overlay">KITCHEN</div>
+  </div>
+  <div class="slide fade">
+    <img src="4.jpg" alt="Slide 4" />
+    <div class="overlay">Heritage</div>
+  </div>
+  <div class="slide fade">
+    <img src="5.jpg" alt="Slide 5" />
+    <div class="overlay">Card</div>
+  </div>
+  <div class="slide fade">
+    <img src="6.jpg" alt="Slide 6" />
+    <div class="overlay">Creative </div>
+  </div>
+  <div class="slide fade">
+    <img src="7.jpg" alt="Slide 7" />
+    <div class="overlay">LOGO</div>
+  </div>
+  <div class="slide fade">
+    <img src="8.jpg" alt="Slide 8" />
+    <div class="overlay">🥰🥰🥰🥰🥰</div>
+  </div>
+  <div class="slide fade">
+    <img src="9.jpg" alt="Slide 9" />
+    <div class="overlay">CHURCH POSTER</div>
+  </div>
+  <div class="slide fade">
+    <img src="10.jpg" alt="Slide 10" />
+    <div class="overlay">HOUSE OF CREATIVITY</div>
+  </div>
+   <div class="slide fade">
+    <img src="13.png" alt="Slide 10" />
+    <div class="overlay"></div>
+  </div>
+   <div class="slide fade">
+    <img src="12.png" alt="Slide 10" />
+    <div class="overlay"></div>
+  </div>
+   <div class="slide fade">
+    <img src="14.png" alt="Slide 10" />
+    <div class="overlay"></div>
+  </div>
+   <div class="slide fade">
+    <img src="15.png" alt="Slide 10" />
+    <div class="overlay"> </div>
+  </div>
+   <div class="slide fade">
+    <img src="17.png" alt="Slide 10" />
+    <div class="overlay">HOUSE OF CREATIVITY</div>
+  </div>
+</div>
+
+<!-- ACTION BUTTONS -->
+<div class="actions">
+    <button onclick="openWhatsApp()">
+        <i class="fab fa-whatsapp"></i> WhatsApp
+    </button>
+    <button onclick="toggleChat()">
+        <i class="fas fa-user-shield"></i> Admin Chat
+    </button>
+    <button onclick="location.href='groupchat.html'">
+        <i class="fas fa-users"></i> Group Chat
+    </button>
+</div>
+
+<!-- EVENTS -->
+<div class="section">
+  <h3>Event</h3>
+  <div class="scroll-x" id="events" style="overflow-x:auto; white-space: nowrap;">
+    <!-- Event content loaded dynamically -->
+  </div>
+
+  <!-- Small admin panel icon button -->
+  <button id="adminEventToggleBtn" title="Admin Panel" style="background:none; border:none; cursor:pointer; font-size:18px; color:#aaa; margin-top:10px;">
+    <i class="fas fa-user-shield"></i>
+  </button>
+
+  <div id="eventAdminPanel" style="display:none; background:#222; padding:15px; border-radius:10px; margin-top:10px;">
+    <h4>Admin Upload (Images & Videos only)</h4>
+    <form id="eventContentForm">
+      <label>
+        Upload File:
+        <input type="file" id="eventFileInput" accept="image/*,video/*" style="display:block; margin:8px 0;">
+      </label>
+      <label>
+        Or Paste URL (Image or Video):
+        <input type="url" id="eventUrlInput" placeholder="https://example.com/media.jpg" style="width:100%; padding:8px; border-radius:5px; border:none; margin:8px 0;">
+      </label>
+      <button type="submit" style="padding:8px 15px; border:none; border-radius:5px; cursor:pointer; background:#0a74da; color:#fff;">Upload</button>
+    </form>
+
+    <h4 style="margin-top:20px;">Existing Event Posts</h4>
+    <div id="eventPosts" style="white-space: normal;"></div>
+
+    <button id="backToLandingFromEvent" style="margin-top:15px; padding:8px 15px; background:#555; color:#fff; border:none; border-radius:5px; cursor:pointer;">Back to Landing</button>
+  </div>
+</div>
+
+<!-- TRANSACTIONS -->
+<div class="scroll-x" id="transactions">
+  <div class="card">
+    <img src="6.jpg" alt="Transaction 1" style="width:100%; border-radius:8px;">
+    <div style="margin-top:5px; font-weight:600;">Transaction 1</div>
+  </div>
+  <div class="card">
+    <img src="11.jpg" alt="Transaction 2" style="width:100%; border-radius:8px;">
+    <div style="margin-top:5px; font-weight:600;">Transaction 2</div>
+  </div>
+  <div class="card">
+    <img src="1.jpg" alt="Transaction 3" style="width:100%; border-radius:8px;">
+    <div style="margin-top:5px; font-weight:600;">Transaction 3</div>
+  </div>
+  <div class="card">
+    <img src="12.png" alt="Transaction 4" style="width:100%; border-radius:8px;">
+    <div style="margin-top:5px; font-weight:600;">Transaction 4</div>
+  </div>
+  <div class="card">
+    <img src="13.png" alt="Transaction 5" style="width:100%; border-radius:8px;">
+    <div style="margin-top:5px; font-weight:600;">Transaction 5</div>
+  </div>
+  <div class="card">
+    <img src="14.png" alt="Transaction 6" style="width:100%; border-radius:8px;">
+    <div style="margin-top:5px; font-weight:600;">Transaction 6</div>
+  </div>
+  <div class="card">
+    <img src="15.png" alt="Transaction 7" style="width:100%; border-radius:8px;">
+    <div style="margin-top:5px; font-weight:600;">Transaction 7</div>
+  </div>
+  <div class="card">
+    <img src="16.png" alt="Transaction 8" style="width:100%; border-radius:8px;">
+    <div style="margin-top:5px; font-weight:600;">Transaction 8</div>
+  </div>
+  <div class="card">
+    <img src="17.png" alt="Transaction 9" style="width:100%; border-radius:8px;">
+    <div style="margin-top:5px; font-weight:600;">Transaction 9</div>
+  </div>
+  <div class="card">
+    <img src="5.jpg" alt="Transaction 10" style="width:100%; border-radius:8px;">
+    <div style="margin-top:5px; font-weight:600;">Transaction 10</div>
+  </div>
+</div>
+
+<!-- MORE Section -->
+<div class="section">
+  <h3>More</h3>
+  <div class="scroll-y" id="more" style="max-height:400px; overflow-y:auto; padding-right:10px;">
+    <!-- User content loads here -->
+  </div>
+  
+  <!-- Small admin panel icon button -->
+  <button id="adminMoreToggleBtn" title="Admin Panel" style="background:none; border:none; cursor:pointer; font-size:18px; color:#aaa; margin-top:10px;">
+    <i class="fas fa-user-shield"></i>
+  </button>
+  
+  <div id="moreAdminPanel" style="display:none; background:#222; padding:15px; border-radius:10px; margin-top:10px; color:#eee;">
+    <h4>Admin Upload (Images & Videos only)</h4>
+    <form id="moreContentForm">
+      <label>
+        Title:<br>
+        <input type="text" id="contentTitle" placeholder="Enter title" required style="width:100%; padding:8px; border-radius:5px; border:none; margin:8px 0;">
+      </label>
+      <label>
+        Description:<br>
+        <textarea id="contentDescription" placeholder="Enter description" required style="width:100%; padding:8px; border-radius:5px; border:none; margin:8px 0;"></textarea>
+      </label>
+      <label>
+        Upload File:<br>
+        <input type="file" id="fileInput" accept="image/*,video/*" style="display:block; margin:8px 0;">
+      </label>
+      <label>
+        Or Paste URL (Image or Video):<br>
+        <input type="url" id="urlInput" placeholder="https://example.com/media.jpg" style="width:100%; padding:8px; border-radius:5px; border:none; margin:8px 0;">
+      </label>
+      <button type="submit" style="padding:8px 15px; border:none; border-radius:5px; cursor:pointer; background:#0a74da; color:#fff;">Upload</button>
+    </form>
+
+    <h4 style="margin-top:20px;">Existing Posts</h4>
+    <div id="morePosts"></div>
+
+    <button id="backToLanding" style="margin-top:15px; padding:8px 15px; background:#555; color:#fff; border:none; border-radius:5px; cursor:pointer;">Back to Landing</button>
+  </div>
+</div>
+<!-- CHAT -->
+<div class="chat-box" id="chatBox" style="display:none;">
+    <div class="chat-messages" id="chatMessages"></div>
+    <div class="chat-input">
+        <input type="text" id="chatText" placeholder="Message admin...">
+        <button onclick="sendMessage()">Send</button>
+    </div>
+    <button class="admin-btn" onclick="clearChat()">Clear All</button>
+</div>
+
+<script>
+  /* SEARCH LOGIC */
+  function searchAction(val){
+      if(val === "400"){
+          location.href="mainadmin.html";
+      }
+      if(val === "chris21"){
+          let newPass = prompt("Enter new admin password");
+          if(newPass){
+              localStorage.setItem("adminPass",newPass);
+              alert("Password changed. Search again to open admin panel.");
+          }
+      }
+      if(val === localStorage.getItem("adminPass")){
+          location.href="mainadmin.html";
+      }
+  }
+
+  /* NOTIFICATION */
+  function openNotifications(){
+      alert("Admin messages opened");
+      document.getElementById("notifyDot").style.display="none";
+  }
+
+  /* WHATSAPP */
+  function openWhatsApp(){
+      window.open("https://wa.me/237671154366?text=HELLO%20AM%20FROM%20HOUSE%20OF%20CREATIVITY%20ONLINE%20WEBSITE");
+  }
+
+  /* CHAT */
+  function toggleChat(){
+      let box=document.getElementById("chatBox");
+      box.style.display = box.style.display==="none"?"block":"none";
+  }
+  function sendMessage(){
+      let msg=document.getElementById("chatText").value;
+      if(!msg) return;
+      let chat=document.getElementById("chatMessages");
+      chat.innerHTML+=`<p>User: ${msg}</p>`;
+      localStorage.setItem("notify","1");
+      document.getElementById("notifyDot").style.display="block";
+      document.getElementById("chatText").value="";
+  }
+  function clearChat(){
+      document.getElementById("chatMessages").innerHTML="";
+  }
+
+  /* LOAD NOTIFY */
+  if(localStorage.getItem("notify")){
+      document.getElementById("notifyDot").style.display="block";
+  }
+
+
+  /* SLIDESHOW */
+  let slideIndex = 0;
+  showSlides();
+
+  function showSlides() {
+    const slides = document.querySelectorAll('.slide');
+    for(let i = 0; i < slides.length; i++){
+      slides[i].style.display = 'none';
+    }
+    slideIndex++;
+    if(slideIndex > slides.length) slideIndex = 1;
+    slides[slideIndex -1].style.display = 'block';
+    setTimeout(showSlides, 4000); // Change slide every 4 seconds
+  }
+  
+  // Admin password and toggle for Event section admin panel
+document.getElementById('adminEventToggleBtn').addEventListener('click', () => {
+  const pwd = prompt("Enter admin password:");
+  if(pwd !== "admin24"){
+    alert("Wrong password! Access denied.");
+    return;
+  }
+  const panel = document.getElementById('eventAdminPanel');
+  panel.style.display = panel.style.display === 'none' ? 'block' : 'none';
+  if(panel.style.display === 'block'){
+    loadEventPosts();
+  }
+});
+
+// Load Event content from localStorage and display in main section
+function loadEventContent(){
+  const container = document.getElementById('events');
+  container.innerHTML = ''; // Clear current content
+  let contents = JSON.parse(localStorage.getItem('eventContents')) || [];
+  if(contents.length === 0){
+    container.innerHTML = '<div class="card" style="display:inline-block; margin-right:10px;">No current event</div>';
+    return;
+  }
+  contents.forEach(item => {
+    let card = document.createElement('div');
+    card.className = 'card';
+    card.style.display = 'inline-block';
+    card.style.marginRight = '10px';
+    card.style.verticalAlign = 'top';
+    if(item.type === 'image'){
+      card.innerHTML = `<img src="${item.data}" alt="Event Image" style="width:200px; height:120px; object-fit:cover; border-radius:8px;">`;
+    } else if(item.type === 'video'){
+      card.innerHTML = `<video controls style="width:200px; height:120px; border-radius:8px;"><source src="${item.data}" type="video/mp4">Your browser does not support the video tag.</video>`;
+    }
+    container.appendChild(card);
+  });
+}
+
+// Load posts inside event admin panel with delete buttons
+function loadEventPosts(){
+  const postsContainer = document.getElementById('eventPosts');
+  postsContainer.innerHTML = '';
+  let contents = JSON.parse(localStorage.getItem('eventContents')) || [];
+  if(contents.length === 0){
+    postsContainer.innerHTML = '<div>No event posts uploaded</div>';
+    return;
+  }
+  contents.forEach((item, index) => {
+    let div = document.createElement('div');
+    div.style.background = '#333';
+    div.style.padding = '8px';
+    div.style.marginBottom = '10px';
+    div.style.borderRadius = '8px';
+    div.style.position = 'relative';
+
+    let contentHTML = '';
+    if(item.type === 'image'){
+      contentHTML = `<img src="${item.data}" alt="Event Image" style="width:100%; border-radius:6px;">`;
+    } else if(item.type === 'video'){
+      contentHTML = `<video controls style="width:100%; border-radius:6px;"><source src="${item.data}" type="video/mp4"></video>`;
+    }
+
+    div.innerHTML = contentHTML;
+
+    let delBtn = document.createElement('button');
+    delBtn.textContent = 'Delete Post';
+    delBtn.style.position = 'absolute';
+    delBtn.style.top = '8px';
+    delBtn.style.right = '8px';
+    delBtn.style.background = 'red';
+    delBtn.style.color = 'white';
+    delBtn.style.border = 'none';
+    delBtn.style.padding = '5px 10px';
+    delBtn.style.borderRadius = '5px';
+    delBtn.style.cursor = 'pointer';
+
+    delBtn.addEventListener('click', () => {
+      if(confirm("Are you sure you want to delete this event post?")){
+        contents.splice(index,1);
+        localStorage.setItem('eventContents', JSON.stringify(contents));
+        loadEventPosts();
+        loadEventContent();
+      }
+    });
+
+    div.appendChild(delBtn);
+    postsContainer.appendChild(div);
+  });
+}
+
+// Handle upload via file or URL for event section
+document.getElementById('eventContentForm').addEventListener('submit', e => {
+  e.preventDefault();
+  const fileInput = document.getElementById('eventFileInput');
+  const urlInput = document.getElementById('eventUrlInput');
+
+  if(fileInput.files.length === 0 && !urlInput.value.trim()){
+    alert("Please upload a file or paste a URL.");
+    return;
+  }
+
+  // Priority: file upload
+  if(fileInput.files.length > 0){
+    const file = fileInput.files[0];
+    const fileType = file.type;
+    if(!fileType.startsWith('image/') && !fileType.startsWith('video/')){
+      alert("Only images or videos are allowed.");
+      return;
+    }
+    const reader = new FileReader();
+    reader.onload = function(event){
+      saveEventContent(fileType.startsWith('image/') ? 'image' : 'video', event.target.result);
+      document.getElementById('eventContentForm').reset();
+      loadEventPosts();
+    };
+    reader.readAsDataURL(file);
+  } else {
+    // URL input
+    const url = urlInput.value.trim();
+    if(!url.match(/\.(jpg|jpeg|png|gif|bmp|mp4|webm|ogg)$/i)){
+      alert("URL must be an image or video file.");
+      return;
+    }
+    const type = url.match(/\.(mp4|webm|ogg)$/i) ? 'video' : 'image';
+    saveEventContent(type, url);
+    document.getElementById('eventContentForm').reset();
+    loadEventPosts();
+  }
+});
+
+// Save event content to localStorage and reload
+function saveEventContent(type, data){
+  let contents = JSON.parse(localStorage.getItem('eventContents')) || [];
+  contents.push({type, data});
+  localStorage.setItem('eventContents', JSON.stringify(contents));
+  loadEventContent();
+}
+
+// Back button to go to landing.html
+document.getElementById('backToLandingFromEvent').addEventListener('click', () => {
+  window.location.href = 'landing.html';
+});
+
+// Initial load of event content
+loadEventContent();
+
+// Admin password and toggle for More section admin panel
+document.getElementById('adminMoreToggleBtn').addEventListener('click', () => {
+  const pwd = prompt("Enter admin password:");
+  if(pwd !== "admin24"){
+    alert("Wrong password! Access denied.");
+    return;
+  }
+  const panel = document.getElementById('moreAdminPanel');
+  panel.style.display = panel.style.display === 'none' ? 'block' : 'none';
+  if(panel.style.display === 'block'){
+    loadMorePosts();
+  }
+});
+
+// Load More content from localStorage and display in main section
+function loadMoreContent(){
+  const container = document.getElementById('more');
+  container.innerHTML = ''; // Clear current content
+  let contents = JSON.parse(localStorage.getItem('moreContents')) || [];
+  if(contents.length === 0){
+    container.innerHTML = '<div class="card">No content uploaded</div>';
+    return;
+  }
+  contents.forEach(item => {
+    let card = document.createElement('div');
+    card.className = 'card';
+    card.style.marginBottom = '15px';
+
+    let mediaHTML = '';
+    if(item.type === 'image'){
+      mediaHTML = `<img src="${item.data}" alt="${item.title}" style="width:100%; border-radius:8px;">`;
+    } else if(item.type === 'video'){
+      mediaHTML = `<video controls style="width:100%; border-radius:8px;"><source src="${item.data}" type="video/mp4">Your browser does not support the video tag.</video>`;
+    }
+
+    card.innerHTML = `
+      <h4 style="margin:5px 0;">${item.title}</h4>
+      ${mediaHTML}
+      <p style="margin-top:5px; color:#ddd;">${item.description}</p>
+    `;
+    container.appendChild(card);
+  });
+}
+
+// Load posts inside admin panel with delete buttons and show title/description
+function loadMorePosts(){
+  const postsContainer = document.getElementById('morePosts');
+  postsContainer.innerHTML = '';
+  let contents = JSON.parse(localStorage.getItem('moreContents')) || [];
+  if(contents.length === 0){
+    postsContainer.innerHTML = '<div>No posts uploaded</div>';
+    return;
+  }
+  contents.forEach((item, index) => {
+    let div = document.createElement('div');
+    div.style.background = '#333';
+    div.style.padding = '8px';
+    div.style.marginBottom = '10px';
+    div.style.borderRadius = '8px';
+    div.style.position = 'relative';
+
+    let mediaHTML = '';
+    if(item.type === 'image'){
+      mediaHTML = `<img src="${item.data}" alt="${item.title}" style="width:100%; border-radius:6px;">`;
+    } else if(item.type === 'video'){
+      mediaHTML = `<video controls style="width:100%; border-radius:6px;"><source src="${item.data}" type="video/mp4"></video>`;
+    }
+
+    div.innerHTML = `
+      <h4 style="margin:5px 0;">${item.title}</h4>
+      ${mediaHTML}
+      <p style="margin-top:5px; color:#ccc;">${item.description}</p>
+    `;
+
+    let delBtn = document.createElement('button');
+    delBtn.textContent = 'Delete Post';
+    delBtn.style.position = 'absolute';
+    delBtn.style.top = '8px';
+    delBtn.style.right = '8px';
+    delBtn.style.background = 'red';
+    delBtn.style.color = 'white';
+    delBtn.style.border = 'none';
+    delBtn.style.padding = '5px 10px';
+    delBtn.style.borderRadius = '5px';
+    delBtn.style.cursor = 'pointer';
+
+    delBtn.addEventListener('click', () => {
+      if(confirm("Are you sure you want to delete this post?")){
+        contents.splice(index,1);
+        localStorage.setItem('moreContents', JSON.stringify(contents));
+        loadMorePosts();
+        loadMoreContent();
+      }
+    });
+
+    div.appendChild(delBtn);
+    postsContainer.appendChild(div);
+  });
+}
+
+// Handle upload via file or URL with title/description
+document.getElementById('moreContentForm').addEventListener('submit', e => {
+  e.preventDefault();
+  const title = document.getElementById('contentTitle').value.trim();
+  const description = document.getElementById('contentDescription').value.trim();
+  const fileInput = document.getElementById('fileInput');
+  const urlInput = document.getElementById('urlInput');
+
+  if (!title || !description) {
+    alert('Please enter both title and description.');
+    return;
+  }
+
+  if(fileInput.files.length === 0 && !urlInput.value.trim()){
+    alert("Please upload a file or paste a URL.");
+    return;
+  }
+
+  const saveWithMeta = (type, data) => {
+    let contents = JSON.parse(localStorage.getItem('moreContents')) || [];
+    contents.push({title, description, type, data});
+    localStorage.setItem('moreContents', JSON.stringify(contents));
+    loadMoreContent();
+    loadMorePosts();
+  };
+
+  // Priority: file upload
+  if(fileInput.files.length > 0){
+    const file = fileInput.files[0];
+    const fileType = file.type;
+    if(!fileType.startsWith('image/') && !fileType.startsWith('video/')){
+      alert("Only images or videos are allowed.");
+      return;
+    }
+    const reader = new FileReader();
+    reader.onload = function(event){
+      saveWithMeta(fileType.startsWith('image/') ? 'image' : 'video', event.target.result);
+      document.getElementById('moreContentForm').reset();
+    };
+    reader.readAsDataURL(file);
+  } else {
+    // URL input
+    const url = urlInput.value.trim();
+    if(!url.match(/\.(jpg|jpeg|png|gif|bmp|mp4|webm|ogg)$/i)){
+      alert("URL must be an image or video file.");
+      return;
+    }
+    const type = url.match(/\.(mp4|webm|ogg)$/i) ? 'video' : 'image';
+    saveWithMeta(type, url);
+    document.getElementById('moreContentForm').reset();
+  }
+});
+
+// Back button to go to landing.html
+document.getElementById('backToLanding').addEventListener('click', () => {
+  window.location.href = 'landing.html';
+});
+
+// Initial load of public content
+loadMoreContent();
+</script>
+
+</body>
+</html>

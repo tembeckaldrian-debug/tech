@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Menu</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<!-- Font Awesome -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Arial, sans-serif;
+}
+
+body{
+    min-height:100vh;
+    background:linear-gradient(135deg, #000428, #004e92);
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    color:#fff;
+}
+
+/* Back button */
+.back-btn{
+    position:fixed;
+    top:15px;
+    left:15px;
+    font-size:22px;
+    color:#fff;
+    text-decoration:none;
+    background:rgba(0,0,0,0.4);
+    padding:10px 12px;
+    border-radius:50%;
+    transition:0.3s;
+}
+
+.back-btn:hover{
+    background:#00c6ff;
+    color:#000;
+}
+
+/* Menu box */
+.menu-box{
+    background:rgba(0,0,0,0.4);
+    padding:40px 30px;
+    border-radius:15px;
+    width:90%;
+    max-width:400px;
+    text-align:center;
+}
+
+/* Title */
+.menu-box h1{
+    margin-bottom:25px;
+    font-size:26px;
+    letter-spacing:2px;
+}
+
+/* Menu links */
+.menu-box a.menu-link{
+    display:block;
+    padding:15px;
+    margin:10px 0;
+    text-decoration:none;
+    color:#fff;
+    font-size:18px;
+    border-radius:8px;
+    background:rgba(255,255,255,0.08);
+    animation:blink 1.3s infinite;
+    transition:0.3s;
+}
+
+.menu-box a.menu-link:hover{
+    background:#00c6ff;
+    color:#000;
+}
+
+/* Blink animation */
+@keyframes blink{
+    0%{opacity:1;}
+    50%{opacity:0.4;}
+    100%{opacity:1;}
+}
+</style>
+</head>
+
+<body>
+
+<!-- Back Icon -->
+<a href="landing.html" class="back-btn">
+    <i class="fas fa-arrow-left"></i>
+</a>
+
+<div class="menu-box">
+    <h1>MENU</h1>
+
+    <a class="menu-link" href="contact.html">Contact Us</a>
+    <a class="menu-link" href="whatsapp.html"><i class="fab fa-whatsapp"></i> Join Team</a>
+    <a class="menu-link" href="about.html">About Us</a>
+    <a class="menu-link" href="mission.html">Mission</a>
+    <a class="menu-link" href="service.html">Our Service</a>
+    <a class="menu-link" href="facebook.html">Facebook Channel</a>
+</div>
+
+</body>
+</html>

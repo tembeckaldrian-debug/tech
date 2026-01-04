@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Our Mission</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<!-- Font Awesome -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Arial, sans-serif;
+}
+
+body{
+    min-height:100vh;
+    background:linear-gradient(135deg, #141E30, #243B55);
+    padding:20px;
+    color:#fff;
+}
+
+/* Back button */
+.back-btn{
+    position:fixed;
+    top:15px;
+    left:15px;
+    font-size:22px;
+    color:#fff;
+    text-decoration:none;
+    background:rgba(0,0,0,0.4);
+    padding:10px 12px;
+    border-radius:50%;
+    transition:0.3s;
+    z-index:100;
+}
+
+.back-btn:hover{
+    background:#00c6ff;
+    color:#000;
+}
+
+/* Page title */
+h1{
+    text-align:center;
+    margin:30px 0;
+    letter-spacing:2px;
+    animation:titleBlink 2s infinite;
+}
+
+/* Mission box */
+.mission-box{
+    max-width:700px;
+    margin:0 auto;
+    background:rgba(0,0,0,0.45);
+    padding:30px;
+    border-radius:15px;
+    border:3px solid #00c6ff;
+    animation:borderBlink 1.6s infinite;
+}
+
+/* Text */
+.mission-box p{
+    font-size:16px;
+    line-height:1.8;
+    text-align:center;
+    animation:textBlink 3s infinite;
+}
+
+/* Animations */
+@keyframes borderBlink{
+    0%{border-color:#00c6ff;}
+    50%{border-color:#ff00ff;}
+    100%{border-color:#00c6ff;}
+}
+
+@keyframes titleBlink{
+    0%{opacity:1;}
+    50%{opacity:0.5;}
+    100%{opacity:1;}
+}
+
+@keyframes textBlink{
+    0%{opacity:1;}
+    50%{opacity:0.8;}
+    100%{opacity:1;}
+}
+</style>
+</head>
+
+<body>
+
+<!-- Back Icon -->
+<a href="menu.html" class="back-btn">
+    <i class="fas fa-arrow-left"></i>
+</a>
+
+<h1>OUR MISSION</h1>
+
+<div class="mission-box">
+    <p>
+        Our mission is to deliver creative, professional, and impactful designs
+        that help individuals, businesses, churches, and organizations express
+        their vision clearly and powerfully.
+        <br><br>
+        We are committed to excellence in graphic design, branding, and digital
+        creativity by providing high-quality flyers, posters, logos, banners,
+        and social media designs that inspire, connect, and grow brands.
+        <br><br>
+        Creativity, integrity, and customer satisfaction are at the heart of
+        everything we do.
+    </p>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Account Access</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+<style>
+body{
+    font-family:Arial;
+    background:#020617;
+    color:white;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    min-height:100vh;
+}
+.container{
+    width:100%;
+    max-width:420px;
+    background:#1e293b;
+    padding:25px;
+    border-radius:10px;
+    position:relative;
+}
+h2{text-align:center}
+input,select,button{
+    width:100%;
+    padding:10px;
+    margin-top:10px;
+    border:none;
+    border-radius:5px;
+}
+button{
+    background:#22c55e;
+    color:white;
+    font-size:16px;
+    cursor:pointer;
+}
+.toggle{
+    background:none;
+    color:#38bdf8;
+    border:none;
+    margin-top:10px;
+    cursor:pointer;
+}
+.admin-btn{
+    position:absolute;
+    top:15px;
+    right:15px;
+    color:white;
+    font-size:18px;
+    cursor:pointer;
+}
+.preview img{
+    width:80px;
+    height:80px;
+    border-radius:50%;
+    object-fit:cover;
+}
+.hidden{display:none}
+</style>
+</head>
+
+<body>
+
+<!-- ADMIN PANEL BUTTON -->
+<i class="fas fa-user-shield admin-btn" onclick="adminAccess()" title="Admin Panel"></i>
+
+<div class="container">
+
+<h2 id="title">Welcome back, login to access your account</h2>
+
+<!-- LOGIN -->
+<div id="loginBox">
+<input type="email" id="loginEmail" placeholder="Email">
+<input type="password" id="loginPass" placeholder="Password">
+<button onclick="login()">Login</button>
+
+<p style="text-align:center">Don't have an account?</p>
+<button class="toggle" onclick="showSignup()">Sign up</button>
+</div>
+
+<!-- SIGNUP -->
+<div id="signupBox" class="hidden">
+<input type="file" id="image" accept="image/*">
+<div class="preview"><img id="previewImg"></div>
+<h3 style="yellow">NOTED ‼️‼️please select your profile picture screenshot it and crop it before uploading it here</h3><br>
+<h4>WARNING ‼️⭕ YOUR ACCOUNT WILL BE DELETED BY THE ADMIN IF YOU DON'T UPLOAD A PROFILE PICTURE</h4>
+<input type="text" id="username" placeholder="Username">
+<input type="email" id="email" placeholder="Email">
+<input type="password" id="password" placeholder="Password">
+
+<select id="country"></select>
+<input type="text" id="phone" placeholder="Phone number">
+
+<button onclick="signup()">Create Account</button>
+<button class="toggle" onclick="showLogin()">Already have an account? Login</button>
+</div>
+
+</div>
+
+<script>
+// ---- COUNTRIES ----
+const countries=[
+{name:"Cameroon",code:"+237"},
+{name:"Nigeria",code:"+234"},
+{name:"Ghana",code:"+233"},
+{name:"United States",code:"+1"},
+{name:"United Kingdom",code:"+44"},
+{name:"France",code:"+33"},
+{name:"Germany",code:"+49"},
+{name:"India",code:"+91"},
+{name:"South Africa",code:"+27"}
+];
+const countrySelect=document.getElementById("country");
+countries.forEach(c=>{
+ let o=document.createElement("option");
+ o.value=c.code;
+ o.textContent=c.name;
+ countrySelect.appendChild(o);
+});
+countrySelect.onchange=()=>phone.value=countrySelect.value+" ";
+
+// ---- IMAGE PREVIEW + COMPRESSION ----
+let compressedImage = "";
+
+image.onchange = function () {
+  const file = this.files[0];
+  if (!file) return;
+
+  const img = new Image();
+  const reader = new FileReader();
+
+  reader.onload = function (e) {
+    img.src = e.target.result;
+  };
+
+  img.onload = function () {
+    const canvas = document.createElement("canvas");
+
+    const MAX_SIZE = 300; // resize limit
+    let width = img.width;
+    let height = img.height;
+
+    if (width > height && width > MAX_SIZE) {
+      height *= MAX_SIZE / width;
+      width = MAX_SIZE;
+    } else if (height > MAX_SIZE) {
+      width *= MAX_SIZE / height;
+      height = MAX_SIZE;
+    }
+
+    canvas.width = width;
+    canvas.height = height;
+
+    const ctx = canvas.getContext("2d");
+    ctx.drawImage(img, 0, 0, width, height);
+
+    // Compress image
+    compressedImage = canvas.toDataURL("image/jpeg", 0.7);
+
+    // Show preview
+    previewImg.src = compressedImage;
+  };
+
+  reader.readAsDataURL(file);
+};
+
+// ---- PASSWORD HASH ----
+async function hash(text){
+ const enc=new TextEncoder().encode(text);
+ const buf=await crypto.subtle.digest("SHA-256",enc);
+ return Array.from(new Uint8Array(buf))
+   .map(b=>b.toString(16).padStart(2,"0")).join("");
+}
+
+// ---- SIGNUP ----
+async function signup(){
+  // Validate inputs before continuing
+  if(
+    !username.value.trim() ||
+    !email.value.trim() ||
+    !password.value.trim() ||
+    !phone.value.trim() ||
+    !countrySelect.value ||
+    !compressedImage  // profile picture required
+  ){
+    alert("Please fill all fields and upload a profile picture.");
+    return;
+  }
+
+  let users=JSON.parse(localStorage.getItem("users"))||[];
+
+  if(users.find(u=>u.email===email.value)){
+    alert("Account already exists. Login instead.");
+    showLogin();
+    return;
+  }
+
+  users.push({
+    username: username.value.trim(),
+    email: email.value.trim(),
+    password: await hash(password.value),
+    phone: phone.value.trim(),
+    country: countrySelect.options[countrySelect.selectedIndex].text,
+    image: compressedImage || "default-avatar.png"
+  });
+
+  localStorage.setItem("users",JSON.stringify(users));
+  window.location="landing.html";
+}
+
+// ---- LOGIN ----
+async function login(){
+ let users=JSON.parse(localStorage.getItem("users"))||[];
+ let user=users.find(u=>u.email===loginEmail.value);
+
+ if(!user){
+  alert("Account not found. Please sign up.");
+  showSignup();
+  return;
+ }
+
+ if(user.password!==await hash(loginPass.value)){
+  alert("Wrong password");
+  return;
+ }
+
+ // Save user last active timestamp
+ let lastActive = JSON.parse(localStorage.getItem('userLastActive')) || {};
+ lastActive[user.email] = Date.now();
+ localStorage.setItem('userLastActive', JSON.stringify(lastActive));
+
+ window.location="landing.html";
+}
+
+// ---- ADMIN ACCESS (password = 42) ----
+function adminAccess(){
+ let pass=prompt("Enter Admin Password:");
+ if(pass==="42"){
+  window.location="admin.html";
+ }else{
+  alert("Access denied");
+ }
+}
+
+// ---- TOGGLE ----
+function showSignup(){
+ loginBox.classList.add("hidden");
+ signupBox.classList.remove("hidden");
+ title.innerText="Create your account";
+}
+function showLogin(){
+ signupBox.classList.add("hidden");
+ loginBox.classList.remove("hidden");
+ title.innerText="Welcome back, login to access your account";
+}
+</script>
+
+</body>
+</html>

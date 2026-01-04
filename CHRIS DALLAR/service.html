@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Our Services</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<!-- Font Awesome -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Arial, sans-serif;
+}
+
+body{
+    min-height:100vh;
+    background:linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+    padding:20px;
+    color:#fff;
+}
+
+/* Back button */
+.back-btn{
+    position:fixed;
+    top:15px;
+    left:15px;
+    font-size:22px;
+    color:#fff;
+    text-decoration:none;
+    background:rgba(0,0,0,0.4);
+    padding:10px 12px;
+    border-radius:50%;
+    transition:0.3s;
+    z-index:100;
+}
+
+.back-btn:hover{
+    background:#00c6ff;
+    color:#000;
+}
+
+/* Page title */
+h1{
+    text-align:center;
+    margin:20px 0 30px;
+    letter-spacing:2px;
+}
+
+/* Services grid */
+.services{
+    display:grid;
+    grid-template-columns:repeat(auto-fit, minmax(250px, 1fr));
+    gap:20px;
+}
+
+/* Service box */
+.service-box{
+    padding:20px;
+    border-radius:15px;
+    border:3px solid #00c6ff;
+    animation:borderBlink 1.5s infinite;
+    background:rgba(0,0,0,0.4);
+}
+
+/* Box inner content */
+.service-content{
+    padding:15px;
+    border-radius:10px;
+    background:rgba(255,255,255,0.08);
+    animation:middleBlink 2s infinite;
+}
+
+/* Title */
+.service-box h2{
+    text-align:center;
+    margin-bottom:10px;
+    letter-spacing:1px;
+}
+
+/* Text */
+.service-box p{
+    font-size:15px;
+    line-height:1.6;
+    text-align:center;
+}
+
+/* Border blink */
+@keyframes borderBlink{
+    0%{border-color:#00c6ff;}
+    50%{border-color:#ff00ff;}
+    100%{border-color:#00c6ff;}
+}
+
+/* Middle blink */
+@keyframes middleBlink{
+    0%{opacity:1;}
+    50%{opacity:0.5;}
+    100%{opacity:1;}
+}
+</style>
+</head>
+
+<body>
+
+<!-- Back Icon -->
+<a href="menu.html" class="back-btn">
+    <i class="fas fa-arrow-left"></i>
+</a>
+
+<h1>OUR SERVICES</h1>
+
+<div class="services">
+
+    <div class="service-box">
+        <div class="service-content">
+            <h2>FLYERS</h2>
+            <p>
+                Church Flyers, Business Flyers, Event Flyers, Birthday Flyers,
+                Wedding Flyers, Campaign Flyers
+            </p>
+        </div>
+    </div>
+
+    <div class="service-box">
+        <div class="service-content">
+            <h2>POSTERS</h2>
+            <p>
+                Music Posters, Movie Posters, Church Posters,
+                School Posters, Promotional Posters
+            </p>
+        </div>
+    </div>
+
+    <div class="service-box">
+        <div class="service-content">
+            <h2>LOGO DESIGN</h2>
+            <p>
+                Business Logos, Church Logos, Brand Logos,
+                Company Logos, Personal Logos
+            </p>
+        </div>
+    </div>
+
+    <div class="service-box">
+        <div class="service-content">
+            <h2>BANNERS</h2>
+            <p>
+                Roll-up Banners, Event Banners,
+                Church Banners, Outdoor Banners
+            </p>
+        </div>
+    </div>
+
+    <div class="service-box">
+        <div class="service-content">
+            <h2>SOCIAL MEDIA DESIGNS</h2>
+            <p>
+                Facebook Posts, Instagram Posts,
+                WhatsApp Ad Designs, YouTube Thumbnails
+            </p>
+        </div>
+    </div>
+
+</div>
+
+</body>
+</html>
